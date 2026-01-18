@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { generatePrompt } from "../utils/generatePrompt"
 
-export default function Resultsstep({ appState }) {
+export default function ResultStep({ appState }) {
   const [prompt, setPrompt] = useState("")
   const [acknowledged, setAcknowledged] = useState(false)
 
@@ -15,23 +15,30 @@ export default function Resultsstep({ appState }) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 p-6 bg-white">
+    <div className="rounded-xl border border-gray-200 p-6 bg-white overflow-y-auto">
       <h2 className="text-xl font-semibold">
         Generated Prompt
       </h2>
 
-      <div className="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-red-700">
-        ⚠️ <strong>Disclaimer:</strong>  
-        This generates a sample diet prompt only.  
-        This is NOT medical advice. Do not blindly follow outputs.
+      {/* Disclaimer */}
+      <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+        ⚠️ This generates a sample diet prompt only.  
+        Not medical advice. Do not blindly follow outputs.
       </div>
 
+      {/* Prompt */}
       <textarea
-        className="mt-6 w-full h-96 rounded-xl border border-gray-300 bg-gray-50 p-4 text-sm leading-relaxed font-mono focus:outline-none focus:ring-2 focus:ring-black/10 transition"
+        className="
+          mt-6 w-full min-h-[60vh]
+          rounded-lg border border-gray-300 bg-gray-50
+          p-4 text-sm leading-relaxed font-mono text-gray-800
+          focus:outline-none focus:ring-2 focus:ring-black/10
+        "
         value={prompt}
-        onChange={e => setPrompt(e.target.value)}
+        readOnly
       />
 
+      {/* Acknowledgement */}
       <div className="mt-4 flex items-center gap-2">
         <input
           type="checkbox"
@@ -43,15 +50,18 @@ export default function Resultsstep({ appState }) {
         </span>
       </div>
 
-      <div className="mt-6 flex gap-3">
-        <button
-          onClick={copyToClipboard}
-          disabled={!acknowledged}
-          className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
-        >
-          Copy Prompt
-        </button>
-      </div>
+      {/* Copy button */}
+      <button
+        onClick={copyToClipboard}
+        disabled={!acknowledged}
+        className="
+          mt-4 w-full sm:w-auto
+          px-4 py-2 bg-black text-white rounded
+          disabled:opacity-50
+        "
+      >
+        Copy Prompt
+      </button>
     </div>
   )
 }

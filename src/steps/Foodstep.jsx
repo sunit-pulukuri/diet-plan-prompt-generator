@@ -21,7 +21,6 @@ const foodCategories = [
   },
 ]
 
-
 export default function FoodStep({ appState, setAppState }) {
   const preferences = appState.foodPreferences || {}
 
@@ -41,7 +40,7 @@ export default function FoodStep({ appState, setAppState }) {
       if (value === "acceptable") return "bg-gray-300"
       if (value === "avoid") return "bg-red-200"
     }
-    return "border"
+    return "border border-gray-300"
   }
 
   return (
@@ -58,21 +57,42 @@ export default function FoodStep({ appState, setAppState }) {
 
             <div className="mt-3 space-y-3">
               {category.items.map(item => {
-                const current = preferences[item]
+                const current = preferences[item] || ""
 
                 return (
                   <div
                     key={item}
-                    className="flex items-center justify-between"
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
                   >
-                    <span>{item}</span>
+                    {/* Food name */}
+                    <span className="text-sm">{item}</span>
 
-                    <div className="flex gap-2">
+                    {/* MOBILE: dropdown */}
+                    <select
+                      value={current}
+                      onChange={e =>
+                        setPreference(item, e.target.value)
+                      }
+                      className="
+                        sm:hidden
+                        w-full rounded-lg border border-gray-300
+                        px-3 py-2 text-sm
+                        focus:outline-none focus:ring-2 focus:ring-black/10
+                      "
+                    >
+                      <option value="">Select preference</option>
+                      <option value="preferred">Preferred</option>
+                      <option value="acceptable">Acceptable</option>
+                      <option value="avoid">Avoid</option>
+                    </select>
+
+                    {/* DESKTOP: buttons */}
+                    <div className="hidden sm:flex gap-2">
                       <button
                         onClick={() =>
                           setPreference(item, "preferred")
                         }
-                        className={`px-3 py-1 rounded ${getButtonClass(
+                        className={`px-3 py-1 rounded text-sm ${getButtonClass(
                           current,
                           "preferred"
                         )}`}
@@ -84,7 +104,7 @@ export default function FoodStep({ appState, setAppState }) {
                         onClick={() =>
                           setPreference(item, "acceptable")
                         }
-                        className={`px-3 py-1 rounded ${getButtonClass(
+                        className={`px-3 py-1 rounded text-sm ${getButtonClass(
                           current,
                           "acceptable"
                         )}`}
@@ -93,8 +113,10 @@ export default function FoodStep({ appState, setAppState }) {
                       </button>
 
                       <button
-                        onClick={() => setPreference(item, "avoid")}
-                        className={`px-3 py-1 rounded ${getButtonClass(
+                        onClick={() =>
+                          setPreference(item, "avoid")
+                        }
+                        className={`px-3 py-1 rounded text-sm ${getButtonClass(
                           current,
                           "avoid"
                         )}`}
