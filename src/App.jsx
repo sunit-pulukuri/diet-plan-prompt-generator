@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Wizard from "./components/WIzard";
 import ProgressBar from "./components/Progressbar";
 
@@ -19,6 +19,13 @@ export default function App() {
     initialState,
   );
 
+  const handleReset = useCallback(() => {
+    localStorage.removeItem("dietPromptState");
+    setAppState(initialState);
+    setCurrentStep(0);
+    window.location.reload();
+  }, [setAppState]);
+
   const steps = useMemo(
     () => [
       () => <IntroStep appState={appState} setAppState={setAppState} />,
@@ -26,9 +33,15 @@ export default function App() {
       () => <GoalStep appState={appState} setAppState={setAppState} />,
       () => <FoodStep appState={appState} setAppState={setAppState} />,
       () => <HabitsStep appState={appState} setAppState={setAppState} />,
-      () => <ResultStep appState={appState} setAppState={setAppState} />,
+      () => (
+        <ResultStep
+          appState={appState}
+          setAppState={setAppState}
+          onReset={handleReset}
+        />
+      ),
     ],
-    [appState, setAppState]
+    [appState, setAppState, handleReset],
   );
 
   return (
@@ -46,7 +59,7 @@ export default function App() {
         </div>
 
         <div className="mt-8 animate-fade">
-           <Wizard
+          <Wizard
             steps={steps}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
