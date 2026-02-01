@@ -10,6 +10,11 @@ export default function ResultStep({ appState }) {
     alert("Prompt copied to clipboard")
   }
 
+  function openInChatGPT() {
+    const encodedPrompt = encodeURIComponent(prompt)
+    window.open(`https://chatgpt.com?prompt=${encodedPrompt}`, '_blank')
+  }
+
   return (
     <div className="rounded-xl border border-gray-200 p-4 bg-white">
       <h2 className="text-xl font-semibold">
@@ -47,17 +52,30 @@ export default function ResultStep({ appState }) {
       </div>
 
       {/* Copy */}
-      <button
-        onClick={copyToClipboard}
-        disabled={!acknowledged}
-        className="
-          mt-4 w-full sm:w-auto
-          px-4 py-2 bg-black text-white rounded
-          disabled:opacity-50
-        "
-      >
-        Copy Prompt
-      </button>
+      <div className="mt-4 flex gap-3">
+        <button
+          onClick={copyToClipboard}
+          disabled={!acknowledged}
+          className="
+            w-full sm:w-auto
+            px-4 py-2 bg-black text-white rounded
+            disabled:opacity-50
+          "
+        >
+          Copy Prompt
+        </button>
+        <button
+          onClick={openInChatGPT}
+          disabled={!acknowledged}
+          className="
+            w-full sm:w-auto
+            px-4 py-2 bg-green-600 text-white rounded
+            disabled:opacity-50
+          "
+        >
+          Open in ChatGPT
+        </button>
+      </div>
     </div>
   )
 }
