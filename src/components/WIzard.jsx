@@ -1,9 +1,9 @@
-export default function Wizard({ steps, currentStep, setCurrentStep }) {
+export default function Wizard({ steps, currentStep, setCurrentStep, appState, setAppState, onReset }) {
   const StepComponent = steps[currentStep];
 
   return (
     <div className="mt-8">
-      <StepComponent />
+      <StepComponent appState={appState} setAppState={setAppState} onReset={onReset} />
 
       <div className="flex justify-between items-center mt-10">
         <button

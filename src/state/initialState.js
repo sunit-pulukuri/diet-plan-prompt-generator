@@ -1,10 +1,10 @@
 export const initialState = {
   profile: {
-    age: "",
+    age: null,
     gender: "",
-    height: "",
+    height: null,
     heightUnit: "cm",
-    weight: "",
+    weight: null,
     weightUnit: "kg",
     trainingType: "",
     activityLevel: "",

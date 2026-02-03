@@ -28,20 +28,14 @@ export default function App() {
 
   const steps = useMemo(
     () => [
-      () => <IntroStep onReset={handleReset} />,
-      () => <ProfileStep appState={appState} setAppState={setAppState} />,
-      () => <GoalStep appState={appState} setAppState={setAppState} />,
-      () => <FoodStep appState={appState} setAppState={setAppState} />,
-      () => <HabitsStep appState={appState} setAppState={setAppState} />,
-      () => (
-        <ResultStep
-          appState={appState}
-          setAppState={setAppState}
-          onReset={handleReset}
-        />
-      ),
+      IntroStep,
+      ProfileStep,
+      GoalStep,
+      FoodStep,
+      HabitsStep,
+      ResultStep,
     ],
-    [appState, setAppState, handleReset],
+    [],
   );
 
   return (
@@ -63,6 +57,9 @@ export default function App() {
             steps={steps}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            appState={appState}
+            setAppState={setAppState}
+            onReset={handleReset}
           />
         </div>
       </div>

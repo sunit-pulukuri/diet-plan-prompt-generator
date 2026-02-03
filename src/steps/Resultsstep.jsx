@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { generatePrompt } from "../utils/generatePrompt";
 
-export default function ResultStep({ appState, onReset }) {
+export default function ResultStep({ appState, setAppState, onReset }) {
   const prompt = useMemo(() => generatePrompt(appState), [appState]);
   const [acknowledged, setAcknowledged] = useState(false);
 

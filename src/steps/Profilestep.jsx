@@ -26,16 +26,21 @@ export default function ProfileStep({ appState, setAppState }) {
     return cm
   }
 
-  const heightOptions = Array.from(
-    { length: MAX_HEIGHT_CM - MIN_HEIGHT_CM + 1 },
-    (_, i) => {
-      const cm = i + MIN_HEIGHT_CM
-      return {
-        cm,
-        display: heightFromCm(cm, heightUnit),
-      }
-    }
-  )
+  function heightToCm(value, unit) {
+    if (unit === "cm") return value
+    if (unit === "m") return Math.round(value * 100)
+    if (unit === "in") return Math.round(value * 2.54)
+    return value
+  }
+
+  function getHeightMinMax(unit) {
+    if (unit === "cm") return { min: 50, max: 275 }
+    if (unit === "m") return { min: 0.5, max: 2.75 }
+    if (unit === "in") return { min: 20, max: 108 }
+    return { min: 50, max: 275 }
+  }
+
+  const heightMinMax = getHeightMinMax(heightUnit)
 
   /* ---------------- WEIGHT ---------------- */
   const MIN_WEIGHT_KG = 30
@@ -48,16 +53,19 @@ export default function ProfileStep({ appState, setAppState }) {
     return kg
   }
 
-  const weightOptions = Array.from(
-    { length: MAX_WEIGHT_KG - MIN_WEIGHT_KG + 1 },
-    (_, i) => {
-      const kg = i + MIN_WEIGHT_KG
-      return {
-        kg,
-        display: weightFromKg(kg, weightUnit),
-      }
-    }
-  )
+  function weightToKg(value, unit) {
+    if (unit === "kg") return value
+    if (unit === "lb") return Math.round(value / 2.20462)
+    return value
+  }
+
+  function getWeightMinMax(unit) {
+    if (unit === "kg") return { min: 30, max: 250 }
+    if (unit === "lb") return { min: 66, max: 551 }
+    return { min: 30, max: 250 }
+  }
+
+  const weightMinMax = getWeightMinMax(weightUnit)
 
   return (
     <div className="rounded-xl border border-gray-200 p-6 bg-white">
@@ -67,19 +75,16 @@ export default function ProfileStep({ appState, setAppState }) {
 
         {/* Age */}
         <div>
-          <label className="block text-sm text-gray-600 mb-1">Age</label>
-          <select
-            value={profile.age}
-            onChange={e => updateProfile("age", e.target.value)}
+          <label className="block text-sm text-gray-600 mb-1">Age (years)</label>
+          <input
+            type="number"
+            min={10}
+            max={80}
+            value={profile.age ?? ""}
+            onChange={e => updateProfile("age", e.target.value === "" ? null : Number(e.target.value))}
             className={inputClass}
-          >
-            <option value="">Select age</option>
-            {Array.from({ length: 71 }, (_, i) => (
-              <option key={i + 10} value={i + 10}>
-                {i + 10}
-              </option>
-            ))}
-          </select>
+            placeholder="Enter age (10-80)"
+          />
         </div>
 
         {/* Gender */}
@@ -115,18 +120,19 @@ export default function ProfileStep({ appState, setAppState }) {
             ))}
           </div>
 
-          <select
-            value={profile.height || ""}
-            onChange={e => updateProfile("height", Number(e.target.value))}
+          <input
+            type="number"
+            min={heightMinMax.min}
+            max={heightMinMax.max}
+            step={heightUnit === "m" ? 0.01 : 1}
+            value={profile.height != null ? heightFromCm(profile.height, heightUnit) : ""}
+            onChange={e => {
+              const val = e.target.value
+              updateProfile("height", val === "" ? null : heightToCm(Number(val), heightUnit))
+            }}
             className={inputClass}
-          >
-            <option value="">Select height</option>
-            {heightOptions.map(h => (
-              <option key={h.cm} value={h.cm}>
-                {h.display} {heightUnit}
-              </option>
-            ))}
-          </select>
+            placeholder={`Enter height (${heightMinMax.min}-${heightMinMax.max} ${heightUnit})`}
+          />
         </div>
 
         {/* Weight */}
@@ -149,18 +155,18 @@ export default function ProfileStep({ appState, setAppState }) {
             ))}
           </div>
 
-          <select
-            value={profile.weight || ""}
-            onChange={e => updateProfile("weight", Number(e.target.value))}
+          <input
+            type="number"
+            min={weightMinMax.min}
+            max={weightMinMax.max}
+            value={profile.weight != null ? weightFromKg(profile.weight, weightUnit) : ""}
+            onChange={e => {
+              const val = e.target.value
+              updateProfile("weight", val === "" ? null : weightToKg(Number(val), weightUnit))
+            }}
             className={inputClass}
-          >
-            <option value="">Select weight</option>
-            {weightOptions.map(w => (
-              <option key={w.kg} value={w.kg}>
-                {w.display} {weightUnit}
-              </option>
-            ))}
-          </select>
+            placeholder={`Enter weight (${weightMinMax.min}-${weightMinMax.max} ${weightUnit})`}
+          />
         </div>
 
         {/* Training Type */}
