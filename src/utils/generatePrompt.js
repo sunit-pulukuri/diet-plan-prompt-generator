@@ -87,43 +87,6 @@ Explain briefly in 1 line why protein is set at this level.
 
 ---
 
-### 5) ONE-WEEK MEAL PLAN (RECIPE TABLE)
-
-Create a **7-day table (Day 1 to Day 7)**.
-
-Rules for the table:
-- Rows = Day 1 to Day 7  
-- Columns = Meals (based on preferred meals per day)  
-- Each cell must include:
-  - Dish name  
-  - Short preparation style (home-style, minimal oil)  
-  - Approximate protein content  
-
-Example cell format:  
-“Paneer bhurji (light oil, onion, tomato) + 2 chapati  
-Protein: ~28 g”
-
-Food rules:
-- Use only common Indian household foods  
-- Avoid fancy or imported items  
-- Meals should be repeatable and realistic for working people  
-
-When suggesting foods:
-- Give **2-3 realistic preparation options** where possible  
-  Example:  
-  “Paneer curry (light oil) OR paneer bhurji OR grilled paneer”
-
-- Vegetables must be specific:  
-  “carrot, beans, spinach, cabbage, tomato (raw or lightly cooked)”
-
-- Carbs must be specific:  
-  “rice (white or brown), chapati, dosa, idli, oats, poha”
-
-- Fats must be practical:  
-  “groundnuts, almonds, cashews, ghee (small amount), cooking oil used in meals”
-
----
-
 ### 6) SUPPLEMENT USE (ONLY IF INCLUDED IN USER FOODS)
 
 If whey protein, creatine, or multivitamin appear in the user's preferred or acceptable foods:
@@ -168,11 +131,48 @@ Encourage consistency and not quitting after one bad day.
 After generating the full 7-day meal plan:
 
 - Create a **clean, well-formatted PDF** containing:
-  - Person snapshot  
-  - Goal strategy  
-  - Daily calorie and macro targets  
-  - Full 7-day meal recipe table  
-  - Flexibility notes and lifestyle tips  
+  - Entire report that you generated
+  - Person snapshot
+  - Goal strategy
+  - Daily calorie and macro targets
+  - Full 7-day meal recipe table
+  - Flexibility notes and lifestyle tips
+
+---
+This is how the 7-day meal recipe table should look like
+
+Rules for the table:
+- Rows = Day 1 to Day 7  
+- Columns = Meals (based on preferred meals per day)  
+- Each cell must include:
+  - Dish name  
+  - Short preparation style (home-style, minimal oil)  
+  - Approximate protein content  
+
+Example cell format:  
+“Paneer bhurji (light oil, onion, tomato) + 2 chapati  
+Protein: ~28 g”
+
+Food rules:
+- Use only common Indian household foods  
+- Avoid fancy or imported items  
+- Meals should be repeatable and realistic for working people  
+
+When suggesting foods:
+- Give **2-3 realistic preparation options** where possible  
+  Example:  
+  “Paneer curry (light oil) OR paneer bhurji OR grilled paneer”
+
+- Vegetables must be specific:  
+  “carrot, beans, spinach, cabbage, tomato (raw or lightly cooked)”
+
+- Carbs must be specific:  
+  “rice (white or brown), chapati, dosa, idli, oats, poha”
+
+- Fats must be practical:  
+  “groundnuts, almonds, cashews, ghee (small amount), cooking oil used in meals”
+
+---
 
 PDF requirements:
 - Simple layout
