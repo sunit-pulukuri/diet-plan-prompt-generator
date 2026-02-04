@@ -19,6 +19,10 @@ const foodCategories = [
     title: "Fats",
     items: ["Ghee", "Butter", "Nuts", "Seeds"],
   },
+  {
+    title: "Supplements",
+    items: ["Whey Protein", "Creatine", "Multi Vitamins"],
+  },
 ]
 
 export default function FoodStep({ appState, setAppState }) {
