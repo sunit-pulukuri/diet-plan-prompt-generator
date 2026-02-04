@@ -28,7 +28,7 @@ export default function ResultStep({ appState, setAppState, onReset }) {
       {/* PROMPT DISPLAY — ANDROID SAFE */}
       <div
         className="
-          mt-4 max-h-[70vh] overflow-y-auto
+          mt-4 max-h-[30vh] overflow-y-auto
           rounded-lg border border-gray-300 bg-gray-50
           p-4 text-sm text-gray-800
           font-mono whitespace-pre-wrap
